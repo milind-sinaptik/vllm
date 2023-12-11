@@ -9,20 +9,17 @@ if [ -z "$LLM_NAME" ]; then
 fi
 
 # Set variables
-APP_NAME="your_application"
-REMOTE_USER="ec2-user"
-REMOTE_HOST="your_ec2_instance_ip"
-REMOTE_DIR="/path/to/remote/directory"
+REMOTE_DIR="/root/vllm"
 
 # SSH into the EC2 instance and pull the latest code
-ssh -o StrictHostKeyChecking=no -i /path/to/private/key.pem $REMOTE_USER@$REMOTE_HOST <<EOF
+ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST <<EOF
   cd $REMOTE_DIR
   git fetch origin main
   git reset --hard origin/main
 EOF
 
 # Execute deployment commands
-ssh -o StrictHostKeyChecking=no -i /path/to/private/key.pem $REMOTE_USER@$REMOTE_HOST <<EOF
+ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST <<EOF
   cd $REMOTE_DIR
 
   pip install -e .

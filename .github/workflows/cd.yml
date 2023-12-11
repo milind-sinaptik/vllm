@@ -6,6 +6,12 @@ on:
       llm:
         description: 'LLM Model to deploy'
         required: true
+      user:
+        description: 'Login User'
+        required: true
+      host:
+        description: 'Login Host'
+        required: true
 
 jobs:
   deploy:
@@ -25,5 +31,7 @@ jobs:
     - name: Deploy to EC2
       env:
         LLM_NAME: ${{ github.event.inputs.llm }}
+        REMOTE_USER: ${{ github.event.inputs.user }}
+        REMOTE_HOST: ${{ github.event.inputs.host }}
       run: |
         bash deploy.sh
