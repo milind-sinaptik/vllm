@@ -16,9 +16,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    outputs:
-      workflow_success: ${{ steps.set-success.outputs.workflow_success }}
-  
 
     steps:
     - name: Checkout code
@@ -38,26 +35,4 @@ jobs:
         REMOTE_HOST: ${{ github.event.inputs.host }}
         HUGGING_FACE_TOKEN: ${{ secrets.HUGGING_FACE_TOKEN }}
       run: |
-        output=$(bash deploy.sh)
-
-        if echo "$output" | grep -q "Application startup complete."; then
-          echo "Application startup complete."
-          echo "::set-output name=workflow_success::true"
-        else
-          echo "Application startup failed."
-          echo "::set-output name=workflow_success::false"
-        fi
-
-  check-success:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check success and set workflow outcome
-      run: |
-        if [ "${{ needs.deploy.outputs.workflow_success }}" == "true" ]; then
-        echo "Application startup complete."
-        exit 0 # Mark the workflow as successful
-        else
-        echo "Application startup failed."
-        exit 1 # Mark the workflow as failed
-        fi
+        bash deploy.sh
