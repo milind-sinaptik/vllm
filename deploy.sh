@@ -21,7 +21,7 @@ EOF
 # Execute deployment commands
 ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST <<EOF
   cd $REMOTE_DIR
-
+  conda acivate llmcd
   pip install -e .
   python -m vllm.entrypoints.api_server --model="$LLM_NAME" --trust-remote-code
 EOF
