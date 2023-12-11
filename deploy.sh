@@ -16,7 +16,7 @@ ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST <<EOF
   source acivate llmcd
   pip install -e .
   echo -e "$HUGGING_FACE_TOKEN\nn" | huggingface-cli login
-  python -m vllm.entrypoints.api_server --model="$LLM_NAME" --trust-remote-code
+  python -m vllm.entrypoints.api_server --model="$LLM_NAME" --trust-remote-code &
 EOF
 
 echo "Deployment to $DEPLOY_ENVIRONMENT completed successfully."
