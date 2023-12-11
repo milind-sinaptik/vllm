@@ -33,5 +33,6 @@ jobs:
         LLM_NAME: ${{ github.event.inputs.llm }}
         REMOTE_USER: ${{ github.event.inputs.user }}
         REMOTE_HOST: ${{ github.event.inputs.host }}
+        HUGGING_FACE_TOKEN: ${{ secrets.HUGGING_FACE_TOKEN }}
       run: |
         bash deploy.sh
