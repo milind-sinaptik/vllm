@@ -15,6 +15,7 @@ ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST <<EOF
   cd $REMOTE_DIR
   source acivate llmcd
   pip install -e .
+  pip install MegaBlocks
   echo -e "$HUGGING_FACE_TOKEN\nn" | huggingface-cli login
   python -m vllm.entrypoints.api_server --model="$LLM_NAME" --trust-remote-code &
 EOF
