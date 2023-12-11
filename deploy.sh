@@ -13,11 +13,11 @@ EOF
 # Execute deployment commands
 ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST <<EOF
   cd $REMOTE_DIR
-  source acivate llmcd
+  source activate llmcd
+  pkill -f "python -m vllm.entrypoints.api_server"
   pip install -e .
-  pip install MegaBlocks
   echo -e "$HUGGING_FACE_TOKEN\nn" | huggingface-cli login
-  python -m vllm.entrypoints.api_server --model="$LLM_NAME" --trust-remote-code &
+  python -m vllm.entrypoints.api_server --model="$LLM_NAME" --trust-remote-code & > std.out
 EOF
 
 echo "Deployment to $DEPLOY_ENVIRONMENT completed successfully."
