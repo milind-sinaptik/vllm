@@ -18,7 +18,7 @@ jobs:
         ref: ${{ github.event.inputs.branch }}
 
     - name: Set up SSH key
-      uses: webfactory/ssh-agent@v0.5.5
+      uses: webfactory/ssh-agent@v0.8.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
