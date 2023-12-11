@@ -17,7 +17,8 @@ ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST <<EOF
   pkill -f "python -m vllm.entrypoints.api_server"
   pip install -e .
   echo -e "$HUGGING_FACE_TOKEN\nn" | huggingface-cli login
-  python -m vllm.entrypoints.api_server --model="$LLM_NAME" --trust-remote-code & > std.out
+  timestamp=$(date "+%Y%m%d%H%M%S")
+  python -m vllm.entrypoints.api_server --model="$LLM_NAME" --trust-remote-code > "std_$timestamp.out" &
 EOF
 
 echo "Deployment to $DEPLOY_ENVIRONMENT completed successfully."
